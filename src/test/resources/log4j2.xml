@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">  
+    <Appenders>  
+        <Console name="Console" target="SYSTEM_OUT" follow="true">  
+            <PatternLayout>  
+                <pattern>[%-5p] %d %c - %m%n</pattern>  
+            </PatternLayout>  
+        </Console>  
+        
+        <RollingFile name="RollingFile" fileName="/logs/log4j2log2.log"
+			filePattern="/logs/%d{yyyyMM}/boottmp.log.%d{yyyyMMddHH}">
+			<PatternLayout pattern="[%-4p] %d %c - %m%n" />
+			<Policies>
+				<!-- <CronTriggeringPolicy schedule="0 0 0 * * ?"/> -->
+				<!-- 每隔一段时间触发，%d{} 决定时间长短 -->
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<!-- <SizeBasedTriggeringPolicy size="10 KB" /> -->
+			</Policies>
+			 <DefaultRolloverStrategy>
+		        <Delete basePath="/logs/" maxDepth="1">
+		          <IfFileName glob="boottmp.log.*">
+		            <IfLastModified age="30s">
+		              <IfAny>
+		                <IfAccumulatedFileSize exceeds="100 MB" />
+		                <!-- <IfAccumulatedFileCount exceeds="3" /> -->
+		              </IfAny>
+		            </IfLastModified>
+		          </IfFileName>
+		        </Delete>
+		     </DefaultRolloverStrategy>
+		</RollingFile>
+		
+		  <RollingFile name="Schedule" fileName="/logs/Schedule.log"
+			filePattern="/logs/%d{yyyyMM}/Schedule.log.%d{yyyyMMddHH}">
+			<PatternLayout pattern="[%-4p] %d %c - %m%n" />
+			<Policies>
+				<!-- <CronTriggeringPolicy schedule="0 0 0 * * ?"/> -->
+				<!-- 每隔一段时间触发，%d{} 决定时间长短 -->
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<!-- <SizeBasedTriggeringPolicy size="10 KB" /> -->
+			</Policies>
+			 <DefaultRolloverStrategy>
+		        <Delete basePath="/logs/" maxDepth="1">
+		          <IfFileName glob="Schedule.log.*">
+		            <IfLastModified age="30s">
+		              <IfAny>
+		                <IfAccumulatedFileSize exceeds="100 MB" />
+		                <!-- <IfAccumulatedFileCount exceeds="3" /> -->
+		              </IfAny>
+		            </IfLastModified>
+		          </IfFileName>
+		        </Delete>
+		     </DefaultRolloverStrategy>
+		</RollingFile>
+		
+    </Appenders>  
+    <Loggers>  
+        <Logger name="org.apache.catalina.util.LifecycleBase" level="err" />  
+        <Logger name="org.apache.coyote.http11.Http11NioProtocol" level="err" />  
+        <Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="err" />  
+        <Logger name="org.hibernate.validator.internal.util.Version" level="err" />
+        
+        <Logger name="org.springframework" level="err" additivity="false">
+        	<AppenderRef ref="Console" />
+        </Logger>  
+        <Logger name="Log4j2" level="err" additivity="false">
+        	<AppenderRef ref="Console" />
+        </Logger> 
+        <Logger name="http" level="err" additivity="false">
+       		<AppenderRef ref="Console" />
+        </Logger> 
+        
+        <logger name="com.github" level="debug" additivity="false">
+       		<AppenderRef ref="Console" />
+        </logger> 
+        <!--schedule类型的格式配置，日志级别大于等于info才会被输出-->  
+        <logger name="schedule" level="info" additivity="false">
+       	 	<AppenderRef ref="Console" />
+            <appender-ref ref="Schedule"/>  
+        </logger>  
+        
+        <Root level="info">  
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+        </Root>  
+    </Loggers>  
+</Configuration>  

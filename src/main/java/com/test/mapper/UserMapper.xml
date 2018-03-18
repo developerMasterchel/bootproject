@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mapper.dao.IUserDao">
+  <resultMap id="BaseResultMap" type="com.test.entity.User">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="age" jdbcType="SMALLINT" property="age" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="telphone" jdbcType="VARCHAR" property="telphone" />
+    <result column="mobiphone" jdbcType="VARCHAR" property="mobiphone" />
+    <result column="certification_status" jdbcType="CHAR" property="certificationStatus" />
+    <result column="certification" jdbcType="VARCHAR" property="certification" />
+    <result column="vip_level" jdbcType="SMALLINT" property="vipLevel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, nick_name, sex, age, create_time, last_login_time, pass_word, email, telphone, 
+    mobiphone, certification_status, certification, vip_level
+  </sql>
+  <select id="findByParams" parameterType="com.test.entity.User" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info u
+    <where>
+    	<if test="id != null and id != ''">
+        	u.id = #{id,jdbcType=VARCHAR}
+      	</if>
+    </where>
+    
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.User">
+    insert into user_info (id, nick_name, sex, 
+      age, create_time, last_login_time, 
+      pass_word, email, telphone, 
+      mobiphone, certification_status, certification, 
+      vip_level)
+    values (#{id,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
+      #{age,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{passWord,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, 
+      #{mobiphone,jdbcType=VARCHAR}, #{certificationStatus,jdbcType=CHAR}, #{certification,jdbcType=VARCHAR}, 
+      #{vipLevel,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.User">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="passWord != null">
+        pass_word,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="telphone != null">
+        telphone,
+      </if>
+      <if test="mobiphone != null">
+        mobiphone,
+      </if>
+      <if test="certificationStatus != null">
+        certification_status,
+      </if>
+      <if test="certification != null">
+        certification,
+      </if>
+      <if test="vipLevel != null">
+        vip_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passWord != null">
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null">
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiphone != null">
+        #{mobiphone,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationStatus != null">
+        #{certificationStatus,jdbcType=CHAR},
+      </if>
+      <if test="certification != null">
+        #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="vipLevel != null">
+        #{vipLevel,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.User">
+    update user_info
+    <set>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passWord != null">
+        pass_word = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null">
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiphone != null">
+        mobiphone = #{mobiphone,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationStatus != null">
+        certification_status = #{certificationStatus,jdbcType=CHAR},
+      </if>
+      <if test="certification != null">
+        certification = #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="vipLevel != null">
+        vip_level = #{vipLevel,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.User">
+    update user_info
+    set nick_name = #{nickName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      age = #{age,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      pass_word = #{passWord,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      mobiphone = #{mobiphone,jdbcType=VARCHAR},
+      certification_status = #{certificationStatus,jdbcType=CHAR},
+      certification = #{certification,jdbcType=VARCHAR},
+      vip_level = #{vipLevel,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+ 
+</mapper>
